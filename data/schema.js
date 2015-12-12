@@ -19,6 +19,11 @@ import {
   nodeDefinitions,
 } from 'graphql-relay';
 
+import {
+  retreiveStories
+} from './database';
+
+
 var {nodeInterface, nodeField} = nodeDefinitions(
   (globalId) => {
     var {type, id} = fromGlobalId(globalId);
