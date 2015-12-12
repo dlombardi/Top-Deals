@@ -1,9 +1,9 @@
 import React from 'react';
 import Relay from 'react-relay';
 
-import Story from "./Story";
+import Deal from "./Deal";
 
-class TopNews extends React.Component {
+class TopDeals extends React.Component {
   setCurrentLimit(e) {
     var value = e.target.value
     var newLimit = Number(value);
@@ -18,27 +18,27 @@ class TopNews extends React.Component {
       <div>
         <h1>Relay Bookmarks</h1>
         <input type="number" onChange={this.setCurrentLimit.bind(this)} />
-        {this.props.news.stories.edges.map(item => {
-          return <Story key={item.node.id} story={item.node} />
+        {this.props.topDeals.deals.edges.map(item => {
+          return <Deal key={item.node.id} deal={item.node} />
         })}
       </div>
     );
   }
 }
 
-export default Relay.createContainer(TopNews, {
+export default Relay.createContainer(TopDeals, {
   initialVariables: {
     linksToFetch: 10
   },
   fragments: {
-    news: () => Relay.QL`
-      fragment on NewsFeed {
+    topDeals: () => Relay.QL`
+      fragment on TopDeals {
         id
-        stories(first: $linksToFetch) {
+        deals(first: $linksToFetch) {
           edges {
             node {
               id,
-              ${Story.getFragment('story')}
+              ${Deal.getFragment('deal')}
             }
           }
         }

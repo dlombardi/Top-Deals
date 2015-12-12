@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 export default class extends Relay.Route {
   static path = '/';
   static queries = {
-    news: () => Relay.QL`query { news }`,
+    topDeals: () => Relay.QL`query { topDeals }`,
   };
   static routeName = 'AppHomeRoute';
 }

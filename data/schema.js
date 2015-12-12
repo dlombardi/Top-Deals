@@ -35,23 +35,23 @@ var {nodeInterface, nodeField} = nodeDefinitions(
   }
 );
 
-var NEWS = {};
+var DEALS = {};
 
-NEWS.stories = [
-  {_id: 1, title: "this is a 1new story", author: "1Darien Lombardi"},
-  {_id: 2, title: "this is a 2new story", author: "2Darien Lombardi"},
-  {_id: 4, title: "this is a 3new story", author: "3Darien Lombardi"},
-  {_id: 5, title: "this is a 3new story", author: "3Darien Lombardi"},
-  {_id: 6, title: "this is a 3new story", author: "3Darien Lombardi"},
-  {_id: 7, title: "this is a 3new story", author: "3Darien Lombardi"},
-  {_id: 8, title: "this is a 3new story", author: "3Darien Lombardi"},
-  {_id: 9, title: "this is a 3new story", author: "3Darien Lombardi"},
-]
+// NEWS.stories = [
+//   {_id: 1, title: "this is a 1new story", author: "1Darien Lombardi"},
+//   {_id: 2, title: "this is a 2new story", author: "2Darien Lombardi"},
+//   {_id: 4, title: "this is a 3new story", author: "3Darien Lombardi"},
+//   {_id: 5, title: "this is a 3new story", author: "3Darien Lombardi"},
+//   {_id: 6, title: "this is a 3new story", author: "3Darien Lombardi"},
+//   {_id: 7, title: "this is a 3new story", author: "3Darien Lombardi"},
+//   {_id: 8, title: "this is a 3new story", author: "3Darien Lombardi"},
+//   {_id: 9, title: "this is a 3new story", author: "3Darien Lombardi"},
+// ]
 
 
 
-let storyType = new GraphQLObjectType({
-  name: 'Story',
+let dealType = new GraphQLObjectType({
+  name: 'Deal',
   fields: () => ({
     id: {
       type: new GraphQLNonNull(GraphQLID),
@@ -69,15 +69,15 @@ let storyType = new GraphQLObjectType({
   interfaces: [nodeInterface]
 })
 
-var {connectionType: storyConnection} =
-  connectionDefinitions({name: 'Story', nodeType: storyType});
+var {connectionType: dealConnection} =
+  connectionDefinitions({name: 'Deal', nodeType: dealType});
 
-let newsFeedType = new GraphQLObjectType({
-  name: "NewsFeed",
+let topDealsType = new GraphQLObjectType({
+  name: "TopDeals",
   fields: () => ({
-    id: globalIdField('NewsFeed'),
-    stories: {
-      type: storyConnection,
+    id: globalIdField('TopDeals'),
+    deals: {
+      type: dealConnection,
       description: "Stories in the newsFeed",
       args: connectionArgs,
       resolve: (obj, args) => {
@@ -92,9 +92,9 @@ let queryType = new GraphQLObjectType({
   name: "Query",
   fields: () => ({
     node: nodeField,
-    news: {
-      type: newsFeedType,
-      resolve: () => NEWS
+    topDeals: {
+      type: topDealsType,
+      resolve: () => DEALS
     }
   })
 })

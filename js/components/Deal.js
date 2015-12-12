@@ -1,20 +1,20 @@
 import React from 'react';
 import Relay from 'react-relay';
 
-class Story extends React.Component {
+class Deal extends React.Component {
   render() {
     return (
       <div>
-        <a href={this.props.story.url}>{this.props.story.title}</a>
+        <a href={this.props.deal.url}>{this.props.deal.title}</a>
       </div>
     );
   }
 }
 
-export default Relay.createContainer(Story, {
+export default Relay.createContainer(Deal, {
   fragments: {
-    story: () => Relay.QL`
-      fragment on Story {
+    deal: () => Relay.QL`
+      fragment on Deal {
         picture,
         link,
         title,
