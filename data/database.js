@@ -12,7 +12,7 @@ MongoClient.connect(process.env.MONGO_URL, (err, database) => {
 })
 
 let replenishDeals = () => {
-  request('https://www.reddit.com/r/deals/top/', function (error, response, html) {
+  request('https://www.reddit.com/r/deals/', function (error, response, html) {
     if (!error && response.statusCode == 200) {
       var $ = cheerio.load(html);
       db.collection('deals').drop()
@@ -52,6 +52,6 @@ new CronJob('* * * * *', function() {
 module.exports = {
   // Export methods that your schema can use to interact with your database
   retreiveStories: () => {
-    return db.collection('stories').find({}).toArray()
+    return db.collection('deals').find({}).toArray()
   }
 };

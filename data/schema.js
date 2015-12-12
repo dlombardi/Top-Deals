@@ -15,6 +15,7 @@ import {
   connectionFromArray,
   fromGlobalId,
   globalIdField,
+  connectionFromPromisedArray,
   mutationWithClientMutationId,
   nodeDefinitions,
 } from 'graphql-relay';
@@ -56,14 +57,14 @@ let storyType = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLID),
       resolve: (obj) => obj._id
     },
-    title: {
-      type: GraphQLString,
-      resolve: (obj) => obj.title
-    },
-    author: {
-      type: GraphQLString,
-      resolve: (obj) => obj.author
-    }
+    picture: { type: GraphQLString },
+    link: { type: GraphQLString },
+    title: { type: GraphQLString },
+    domainLink: { type: GraphQLString },
+    domain: { type: GraphQLString },
+    timeStamp: { type: GraphQLString },
+    authorLink: { type: GraphQLString },
+    author: { type: GraphQLString },
   }),
   interfaces: [nodeInterface]
 })
@@ -80,7 +81,7 @@ let newsFeedType = new GraphQLObjectType({
       description: "Stories in the newsFeed",
       args: connectionArgs,
       resolve: (obj, args) => {
-        return connectionFromArray(obj.stories, args)
+        return connectionFromPromisedArray(retreiveStories(), args)
       }
     },
   }),
